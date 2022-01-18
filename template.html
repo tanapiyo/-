@@ -1,0 +1,64 @@
+<html>
+  <body>
+    <head>
+      <meta name="robots" content="noindex,nofellow">
+      <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=EUC-JP">
+      <title>Result</title>
+    </head>
+    <div class="container">
+      <div class="item">
+        <span class="rank">1</span>
+        <img src="imgs/peach_10/000001.jpg" width="140" height="100">
+        <span class="score">1.4224</span>
+      </div>
+      {% data %}
+    </div>
+  </body>
+</html>
+
+<style>
+body{
+  margin: 50px;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.item{
+  width: 140px;
+  height: 190px;
+  padding: 0 20px;
+  border: solid 1px #5a5a5a;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+span.rank{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgb(64, 136, 165);
+  color: #ffffff;
+  text-align:center;
+  line-height: 30px;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin: 3px auto 3px ;
+
+}
+span.score{
+  display: inline-block;
+  margin: 5px auto;
+  text-align: center;
+  padding: 5px 20px;
+  font-weight: bold;
+  font-size: 1.3em;
+  color: #5a5a5a;
+}
+
+</style>
