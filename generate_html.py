@@ -12,7 +12,10 @@ cgitb.enable()
 # 日本語用
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-# 置換えデータ作成（サンプル用）
+# TODO:: 画像読み込み
+# 読み込み順はtxtで指定，scoreも同様
+
+# 置換えデータ作成
 data = ''
 # 画像分ループさせる
 data = data + '''
@@ -31,5 +34,5 @@ file.closed
 # {% %}をpage_dataに置換え
 html = html.replace('{% data %}', data)
 
-# HTML出力
+# HTML出力（コマンドラインでパイプして使う）
 print(html)
