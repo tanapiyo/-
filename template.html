@@ -5,13 +5,18 @@
       <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=EUC-JP">
       <title>Result</title>
     </head>
+    <p class="title">top correct images</p>
     <div class="container">
-      <div class="item">
+      <!-- <div class="item">
         <span class="rank">1</span>
         <img src="imgs/peach_10/000001.jpg" width="140" height="100">
         <span class="score">1.4224</span>
-      </div>
-      {% data %}
+      </div> -->
+      {% top_data %}
+    </div>
+    <p class="title">worst wrong images</p>
+    <div class="container">
+      {% worst_data %}
     </div>
   </body>
 </html>
@@ -61,4 +66,8 @@ span.score{
   color: #5a5a5a;
 }
 
+p.title{
+  color: #5a5a5a;
+  font-size: 2.0em;
+}
 </style>

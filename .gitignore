@@ -59,3 +59,6 @@ docs/source/changelog.md
 
 # images
 imgs/*
+
+# results(from matlab online)
+result/*
