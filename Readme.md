@@ -35,3 +35,7 @@ python generate_html.py color > htmls/color.html
 - dcnn_linear
 - dcnn_nonlinear
 - dcnn_vgg16
+
+### ex1_html.sh
+
+上記の generate_html を自動化したシェルスクリプト
