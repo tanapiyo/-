@@ -7,7 +7,7 @@ import io
 import sys
 
 
-def main(kind):
+def main(kind, exnum):
     # エラー表示
     cgitb.enable()
 
@@ -15,16 +15,16 @@ def main(kind):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
     # 画像読み込み
-    f = open('result/images/' + kind + '_top_image.txt')
+    f = open('result/' + exnum + '/images/' + kind + '_top_image.txt')
     top_images = f.read().split(",")
     f.close()
-    f = open('result/images/' + kind + '_worst_image.txt')
+    f = open('result/' + exnum + '/images/' + kind + '_worst_image.txt')
     worst_images = f.read().split(",")
     f.close()
-    f = open('result/scores/' + kind + '_top_score.txt')
+    f = open('result/' + exnum + '/scores/' + kind + '_top_score.txt')
     top_scores = f.read().split()
     f.close()
-    f = open('result/scores/' + kind + '_worst_score.txt')
+    f = open('result/' + exnum + '/scores/' + kind + '_worst_score.txt')
     worst_scores = f.read().split()
     f.close()
 
@@ -41,7 +41,7 @@ def main(kind):
         top_data = top_data + '''
           <div class="item">
             <span class="rank">{rank}</span>
-            <img src="../imgs{img_path}" width="140" height="100">
+            <img src="../../imgs{img_path}" width="140" height="100">
             <span class="score">{score}</span>
           </div>
           '''.format(rank=i, img_path=top_images[i][1:], score=str(top_scores[i]))
@@ -52,7 +52,7 @@ def main(kind):
             worst_data = worst_data + '''
             <div class="item">
               <span class="rank">{rank}</span>
-              <img src="../imgs{img_path}" width="140" height="100">
+              <img src="../../imgs{img_path}" width="140" height="100">
               <span class="score">{score}</span>
             </div>
             '''.format(rank=i, img_path=worst_images[i][1:], score=str(worst_scores[i]))
@@ -70,9 +70,11 @@ def main(kind):
     print(html)
 
 
-# コマンドラインで使う　引数に「bof」や「color」などを指定
-# bof, color, dcnn_linear, dcnn_nonlinear, dcnn_vgg16
+# コマンドラインで使う　引数に「bof」や「color」などを指定するのと，　どの実験を出力するかを指定
+# kindはbof, color, dcnn_linear, dcnn_nonlinear, dcnn_vgg16
+# exnumはex1-1, ex1-2, ex2
 if __name__ == '__main__':
     args = sys.argv
-    kind = args[1]
-    main(kind)
+    kind = args[1]  # 特徴量の種類
+    exnum = args[2]
+    main(kind, exnum)
