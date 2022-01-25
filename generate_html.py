@@ -46,15 +46,16 @@ def main(kind):
           </div>
           '''.format(rank=i, img_path=top_images[i][1:], score=str(top_scores[i]))
 
-    for i in range(len(worst_images)):
-        # 画像分ループさせる
-        worst_data = worst_data + '''
-          <div class="item">
-            <span class="rank">{rank}</span>
-            <img src="../imgs{img_path}" width="140" height="100">
-            <span class="score">{score}</span>
-          </div>
-          '''.format(rank=i, img_path=worst_images[i][1:], score=str(worst_scores[i]))
+    if(len(worst_scores) != 0):
+        for i in range(len(worst_images)):
+            # 画像分ループさせる
+            worst_data = worst_data + '''
+            <div class="item">
+              <span class="rank">{rank}</span>
+              <img src="../imgs{img_path}" width="140" height="100">
+              <span class="score">{score}</span>
+            </div>
+            '''.format(rank=i, img_path=worst_images[i][1:], score=str(worst_scores[i]))
 
     # template.htmlの読み込み
     with open('template.html', 'r') as file:

@@ -34,7 +34,7 @@ python generate_html.py color > htmls/color.html
 - color
 - dcnn_linear
 - dcnn_nonlinear
-- dcnn_vgg16
+- dcnn_vgg16_linear
 
 ### ex1_html.sh
 
