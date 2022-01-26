@@ -39,5 +39,3 @@ folders = ["leopard_200", "okonomiyaki_200",
            "takoyaki_50", "takoyaki_300", "tiger_200"]
 for folder in folders:
     list_dirs_and_crop(folder)
-
-# imgs/takoyaki_300/000281.jpg
