@@ -1,20 +1,4 @@
-%ex1_1は実験1の容易な組み合わせ（tigerとokonomiyaki）の分類実験
-%画像のunzip
-unzip('cropped_leopard_200.zip');
-unzip('cropped_okonomiyaki_200.zip');
-unzip('cropped_tiger_200.zip');
-unzip('cropped_takoyaki_50.zip');
-unzip('cropped_takoyaki_300.zip');
-
-%フォルダ名の変更
-movefile cropped_leopard_200 leopard_200
-movefile cropped_okonomiyaki_200 okonomiyaki_200
-movefile cropped_tiger_200 tiger_200
-movefile cropped_takoyaki_50 takoyaki_50
-movefile cropped_takoyaki_300 takoyaki_300
-
-%ファイル名の保存
-filename_save();
+%ex1_2は実験1の難しい組み合わせ（tigerとleopard）の分類実験
 
 %ファイル名読み込み
 load('list.mat');
@@ -22,9 +6,9 @@ load('classlist.mat');
 
 %Bofベクトルの全体の作成
 tiger_start = 200;
-okonomiyaki_start = 100;
+leopard_start = 0;
 n=100;%画像枚数
-create_bof_dict_all(list, tiger_start,okonomiyaki_start,n);
+create_bof_dict_all(list, tiger_start,leopard_start,n);
 
 load('codebook.mat');
 load('bof.mat');
@@ -48,9 +32,9 @@ for i=1:cv
   %positiveがtiger
   train_pos = train_pos + tiger_start;
   eval_pos = eval_pos + tiger_start;
-  %negativeがokonomiyaki
-  train_neg = train_neg + okonomiyaki_start;
-  eval_neg = eval_neg + okonomiyaki_start;
+  %negativeがleopard
+  train_neg = train_neg + leopard_start;
+  eval_neg = eval_neg + leopard_start;
 
   %indexとlabelの生成
   train_index=[train_pos train_neg];
@@ -74,17 +58,17 @@ for i=1:cv
   color_ac_all=[color_ac_all color_accuracy];
   %最後の場合結果をテキストに吐き出す
   if i ==cv
-    save_highest_images_classify("result_1/color", list, color_scores, color_labels, eval_labels, eval_index);
+    save_highest_images_classify("result_2/color", list, color_scores, color_labels, eval_labels, eval_index);
   end
   %%%% BoFベクトルと非線形SVM %%%%
   fprintf('start bof')
   %Bofベクトルの作成（学習）
-  bof_dict_train = get_bof_dict(bof, train_index,80,n,tiger_start,okonomiyaki_start);
+  bof_dict_train = get_bof_dict(bof, train_index,80,n,tiger_start,leopard_start);
   %非線形SVMでの学習
   %bof_nonlinear_model = svm_train('rbf',bof_dict_train,train_labels);
   bof_nonlinear_model = fitcsvm(bof_dict_train, train_labels,'KernelFunction','rbf'); 
   %Bofベクトルの作成（推論）
-  bof_dict_eval = get_bof_dict(bof, eval_index, 20,n,tiger_start,okonomiyaki_start);
+  bof_dict_eval = get_bof_dict(bof, eval_index, 20,n,tiger_start,leopard_start);
   %非線形SVMでの推論
   %[bof_labels, bof_scores] = svm_eval(bof_nonlinear_model, bof_dict_eval);
   [bof_labels, bof_scores] = predict(bof_nonlinear_model, bof_dict_eval);
@@ -92,7 +76,7 @@ for i=1:cv
   bof_ac_all=[bof_ac_all bof_accuracy];
   %最後の場合結果をテキストに吐き出す
    if i ==cv
-    save_highest_images_classify("result_1/bof", list, bof_scores, bof_labels, eval_labels,eval_index);
+    save_highest_images_classify("result_2/bof", list, bof_scores, bof_labels, eval_labels,eval_index);
    end
   %%%% DCNN(alexnet)と線形SVM %%%%
   fprintf('start DCNN')
@@ -110,7 +94,7 @@ for i=1:cv
   dcnn_linear_ac_all=[dcnn_linear_ac_all dcnn_linear_accuracy];
   %最後の場合結果をテキストに吐き出す
   if i ==cv
-    save_highest_images_classify("result_1/dcnn_linear", list, dcnn_linear_scores, dcnn_linear_labels, eval_labels,eval_index);
+    save_highest_images_classify("result_2/dcnn_linear", list, dcnn_linear_scores, dcnn_linear_labels, eval_labels,eval_index);
   end
   %%%% DCNN(vgg16)と線形SVM %%%%
   fprintf('start vgg16')
@@ -128,7 +112,7 @@ for i=1:cv
   dcnn_vgg16_linear_ac_all=[dcnn_vgg16_linear_ac_all dcnn_vgg16_linear_accuracy];
   %最後の場合結果をテキストに吐き出す
   if i ==cv
-    save_highest_images_classify("result_1/dcnn_vgg16_linear", list, dcnn_vgg16_linear_scores, dcnn_vgg16_linear_labels, eval_labels,eval_index);
+    save_highest_images_classify("result_2/dcnn_vgg16_linear", list, dcnn_vgg16_linear_scores, dcnn_vgg16_linear_labels, eval_labels,eval_index);
   end
 
   %%%% DCNN(alexnet)と非線形SVM %%%%
@@ -144,7 +128,7 @@ for i=1:cv
   dcnn_nonlinear_ac_all=[dcnn_nonlinear_ac_all dcnn_nonlinear_accuracy];
   %最後の場合結果をテキストに吐き出す
   if i ==cv
-    save_highest_images_classify("result_1/dcnn_nonlinear", list, dcnn_nonlinear_scores, dcnn_nonlinear_labels, eval_labels,eval_index);
+    save_highest_images_classify("result_2/dcnn_nonlinear", list, dcnn_nonlinear_scores, dcnn_nonlinear_labels, eval_labels,eval_index);
 
   end
 end
