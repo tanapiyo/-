@@ -1,0 +1,36 @@
+%ファイル名読み込み
+load('list.mat');
+load('classlist.mat');
+
+%インデックスや変数の指定
+train_start = 301;
+eval_start = 351;
+neg_start = 651;
+%学習に使う画像
+n_pos=50;
+%ネガティブ画像の枚数
+n_neg=500;
+%推論に使う画像
+n_eval=300;
+
+%%%%% 学習 %%%%%
+train_pos=[train_start:train_start+n_pos-1];
+train_neg=[neg_start:neg_start+n_neg-1];
+train_index=[train_pos train_neg];
+train_labels=[ones(numel(train_pos),1); ones(numel(train_neg),1)*(-1)];
+
+%学習画像全てからDCNN特徴を抽出する
+dcnn_dict_train = get_dcnn_dict(list,train_index);
+%SVMを学習する
+model = fitcsvm(dcnn_dict_train, train_labels,'KernelFunction','linear'); 
+
+%%%%% 推論 %%%%%
+eval_index=[eval_start:eval_start+n_eval-1];
+
+%推論画像からDCNN特徴を抽出する
+dcnn_dict_eval = get_dcnn_dict(list,eval_index);
+%SVMで分類する
+[predict_labels, scores] = predict(model, dcnn_dict_eval);
+
+%スコアをソートして上位100位を保存する
+save_highscore_images_ex2("result_3/all", list, scores,eval_index);

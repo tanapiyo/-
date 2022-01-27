@@ -36,6 +36,6 @@ def list_dirs_and_crop(folder):
 
 input_dir = Path(r"./imgs/")
 folders = ["leopard_200", "okonomiyaki_200",
-           "takoyaki_50", "takoyaki_300", "tiger_200"]
+           "takoyaki_50", "takoyaki_300", "tiger_200", "bgimg_500"]
 for folder in folders:
     list_dirs_and_crop(folder)

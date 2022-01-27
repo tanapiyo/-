@@ -1,5 +1,5 @@
 function [] = save_highest_images_classify(filename, list, score, predict_labels, eval_labels, eval_index)
-    % 画像一覧，スコア, predict_index, eval_indexを受け取って正解と不正解の上位，下位10位について
+    % 画像一覧，スコア, predictとevalのlabel, eval_indexを受け取って正解と不正解の上位，下位10位について
     % 画像名とスコアを記録する
 
     %predict=evalとそれ以外でインデックスをわける
